@@ -558,6 +558,12 @@
             saveDB();
         }
 
+        // Ensure Demo User always exists without requiring a local cache clear
+        if (!DB.users.some(u => u.email === "user@shop.com")) {
+            DB.users.push({ id: 2, firstName: "Demo", lastName: "Customer", email: "user@shop.com", password: btoa("user123"), role: "user", phone: "1234567890", address: "123 Test St", city: "New York", zip: "10001" });
+            saveDB();
+        }
+
         function saveDB() { localStorage.setItem(DB_KEY, JSON.stringify(DB)); }
         let currentUser = JSON.parse(localStorage.getItem('shopx_user')) || null;
 
